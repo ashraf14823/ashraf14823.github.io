@@ -1,11 +1,6 @@
 let dirHandle;
 async function Button() {
-    if(window.Prototype) {
-        delete Object.prototype.toJSON;
-        delete Array.prototype.toJSON;
-        delete Hash.prototype.toJSON;
-        delete String.prototype.toJSON;
-    }
+
     dirHandle = await window.showDirectoryPicker();
     // let dirStructObj = {}
     let dirStructObj = await getDirStruct(dirHandle)
@@ -31,7 +26,9 @@ async function getDirStruct(entry) {
         for await (const subEntry of entry.values()) {
             info.sub_items.push(getDirStruct(subEntry))
             Promise.all(info.sub_items).then((value) => {
-                info.sub_items = value
+                let val = {}
+                val = value
+                info.sub_items = val 
             })
         }
         path = ''
